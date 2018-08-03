@@ -1,0 +1,366 @@
+Consensys Academy
+---
+Module 1: Blockchain Tech
+- Centralized -> Decentralized -> Distroibuted
+- Ledgers: Datastore that tracks information 
+	ie.) Think of databases in centralized platforms
+	     Regulated
+	     Updated by all or nothing
+
+- Distrubuted Ledgers: Datastores that are not centralized
+	ie.) No central authority (admins)
+	     Regulated by public/private key cryptography
+	     Peers must agree on state
+	     Updated by  all or nothing
+
+	** Blockchain is a type of distributed ledger
+
+- Consensus mechanisms: 
+	- Verification that requires everyone to have the same ledger
+	- A type of mathematical verification, tolerates 1/3 dishonest 
+	or absent participants
+	 A functioning network is 1 out of 4 approval
+	- Once verified, the ledger is updated
+
+- Blockhain Accessiblity: 
+	- Public
+	- Permissioned/Consortium
+	- Private
+
+---
+Module 2: Blockchain Primitives
+- Hash Function: Same length input, same output
+	- Hashing is the conversion
+
+1. Deterministic
+2. Fast
+3. Infeasible to reverse (one way)
+4. Randomness (small change in input, very different output)
+5. Collision Resistant (2 inputs will never have the same output)
+
+** VERIFIES DATA
+
+- Public Key Cryptography:
+	Encryption:
+	- Public/ Private Key
+	- Can decrypt
+
+	Authentication:
+	- Public key verifies Private key
+	** Signs transactions
+
+- Smart Contracts: 
+	- Trustless
+	- Trackable
+	- Irreversible
+	- Self-executable
+
+- Peer to Peer
+	- Nodes
+	- All computers have same permissions
+
+- Server based
+	- Users have different priviledges
+
+--- 
+Module 3: Ethereum Basics
+- Accounts: 20 byte address
+
+- 2 Types: 
+	1.) Externally owned by User's private keys
+	2.) Contract accounts owned by smart contracts
+
+- Transactions: Messages sent from one account to another
+	* Not required to send ETH
+	* Code will execute if transaction is sent with data to contract
+	* Requires fees, or Gas	
+
+- Nounce: Number of transaction sent from account
+
+- Gas and Fees:
+	- Used for processing transactions
+	- Different operations consumes different amount of gas
+	- Paid with ETH
+	* Higher fees, faster transactions
+	- Flucuates on network
+	* Protects the network
+
+- Structure
+	- EVM: Ethereum Virutal Machine: Runs on bytcecode, but can be coded on using
+	Solidity.
+		- Uses Samrt Contracts
+---
+Module 4: Decentralized Applications
+** When to use Blockchains in applications
+	- (CASE) -> (USAGE)
+	- Digital Relations -> Blockchains manage accounts
+	- Dynamic Data -> Blockchains records and store data updates
+	- Leway on network speed -> Blockchains are slower
+
+Blockchain Stack
+Web3 Browser -> Front End -> Ethereum Gateway -> Network
+
+Traditional Stack
+Web Browser -> File Server <-> Database
+
+* All data of User are left on the website's database if they leave the website
+	ie.) Take all of Facebook's data upon leaving
+
+Ethereum Development:
+1. Create account
+2. Fund account
+3. Develop
+4. Compile 
+5. Sign/ Deploy
+
+Ethereum Key Frameworks:
+	Truffle: 
+		- Connect/compile/interact
+		- Automated testing
+	Ganache: 
+		- Create private blockchain for testing
+		- Interact
+		- Automated Testing
+	Web3.js:
+		- Connect Ethereum Node
+		- Deploy/ Interact
+		- uses HTTP
+	IPFS/ Swarm:
+		- Decentralized file sharing
+	Metamask: 
+		- Account manager for accessing ETH and connecting to Blockchain
+		- Injects Web3 to browser
+		- Keep User's keys in their own hands
+---
+Module 5: Development Frameworks/ Enviroment
+- Ganache CLI:
+	- > ganache-cli
+	- (Copy and paste the seed phrase to metamask)
+	- (Connect via metamask on Chrome)
+
+** Truffle: Handles smart contracts
+** Ganache: Acts as local test Blockchain
+** Drizzle: Frontend Framework 
+
+--- 
+Module 6: Smart Contract Fundamentals
+
+** Solidity:
+	- Statically typed
+	- Compiled 
+	- Types: 
+		- Boolean: 
+			- ie.) bool <varName>
+			- defaults to false
+		- Integer: 
+			- Signed or Unsigned
+				- Signed: 0, positive and negative
+				- Unsigned: 0 and positive
+			- Can be defined with/without number suffuix
+			- uint is the same as uint256 where 256 is the size of
+			 integer in bits
+			- Suffix must be a multiple of 8
+				- uint8, int16, int64, uint256
+		- Address:
+			- 20 byte value with members (functions)
+			- .balance(): queries the balance of the address
+			- .transfer(): transfer ETH (wei) to address
+			- .call(): call another contract
+			- .delegatecall(): delegates a function call to the address
+			maintaining all aspects of the calling function (storage, 
+			balance, etc.)
+		- Byte Arrays: 
+			- Fixed size:
+				- defined with byte between 1 and 32
+				- ie.) byte[4] variableName
+				- .length()
+			- Dynamic size:
+				- byte[]
+		- Enums: user defined type
+			- Explicitly convertible to integer types
+			- Must have one member
+		- Functions: 
+			- Internal (default): calls from current contract
+			- External: called to and from other contracts		
+		- Arrays: 
+			- Fixed or Dynamic
+			- Storage arrays can be any data type
+			- Memory arrays can be anything but mapping
+			- .length
+			- .push()
+			- Memory Arrays: 
+				- Cannot be resized
+				- Determined at runtime
+				ie.) uint[] memory a = new uint[](<variable legnth>)
+				- cheaper than Storage Arrays
+		- Structs:
+			- way to define new types
+			- cannot contain member of own type
+		- Mappings: 
+			- Hash table
+			- declared: mapping(_KeyType => _ValueType)
+			- _KeyType: can be any type but mapping, dynamic array, 
+			contract, enum or struct
+			- _Valuetype: can be any type
+			- mappings have no length
+			- getters require _keyType as a parameter and return the 
+			_valueType
+		- Units: 
+			- wei, finney, szabo, ether
+		- Global Vars: 
+			- msg.data (bytes): complete calldata
+			- msg.gas (uint): remaining gas
+			- msg.sender (address): send of the message
+			- msg.sig (bytes4) : first 4 bytes of the calldata
+			- msg.value (uint): number of wei sent with message
+			- now (uint): current block timestap
+			- tx.gasprice (uint): gas price of transaction
+			- tx.origin (address): sender of the transaction
+			
+** Solidity functions
+- declared as:
+function <function name> (<parameter>) <accessibility> { 
+	
+	<body>
+
+}
+- parameters: require types
+	ie) string _name
+
+- accessibility: 
+	- defaulted to Public
+	- External: Only accessible from outside function
+	- Private: Only accessible from this contract
+	- Internal: This contract and all derived contracts
+
+- returns: used to specify that this function returns a value
+	- ie.)
+	returns(string) {
+		return string;
+	}
+
+- Types
+	- constant: used to specify a function that does not modify
+	- pure: do not read or modify 
+		- input -> output
+	- payable: marked to handle ether
+
+- Modifiers
+	- Allows checks to be reused across functions
+	- uses require()
+	ie.) 
+	modifier onlyOwner {
+		require(msg.sender == owner);
+		_; // indicates that the functions should execute after this
+		   // underscore
+	}
+
+	function setName() {
+		onlyOwner {
+			return name; 
+		}
+	};
+
+	// Using modifiers help check a condition is meant before running the 
+	// function
+
+- Overloaded 
+	- Functions in Solidity can be overloaded to require different args
+
+** Storage and Memory
+EVM: Storage, Memory, Call Stack
+	- All stored on the Blockchain
+	- Storage
+		- Persistent across executions
+		- Expensive
+	- Memory 
+		- Persists for function call
+		- Cheap
+	- Call Stack
+		- Cheapest
+		- Local Variables
+
+- State Variables are stored in Storage
+- Function Arguments are stored in Memory
+- Structs, arrays and mapping are passed by reference
+	- Modiyfing them changes the state
+	- Copy to memory with memory keyword
+
+** Contract Structure
+	- contracts == classes in Java
+	- First Line => Pragma statement
+		- pragma solidity ^0.4.10
+	- .sol file type
+	- Structure:
+		pragma solidity ^0.4.10
+
+		contract SimpleStorage {
+			
+			// state variables comes first
+			uint value; 
+			... 
+
+			// events come after states
+			event LogChange(uint newVal);
+
+			// then modifiers
+			modifier onlyIfZero {
+				require(value == 0);
+				_;
+			}
+
+			// constructors runs when contract initiates
+			SimpleStorage() {
+				value = 1;
+			} 
+
+			// functions after constructors
+			function setStorage(uint newValue) {
+				value = newValue;
+			}
+		}
+- Contract Inheritance:
+	- ie.) contract mortal { ... }
+	       contract greeter is mortal { ... }
+	       // the 'is' allows greeter to inherit all the properties of mortal
+	- When a contract inherits from another contract, only one contract is 
+	created on the blockchain. 
+	- All code from base contracts wiil be copied into the created contract
+
+** Smart Contract ABIs
+	- ABIs == Application Binary Interface
+		- Created when you compiled a contract
+		- Essentially a list of contract functions in JSON
+		- Encoding and Decoding data into and out of transactions
+		- Basically is a translation of the contract that is compiled
+		 into bytecode
+
+** Smart Contract Events
+	- declared by:
+		event <event name> (<parameters>)
+	- requires the 'emit <event name>' to be used before the event is logged
+	- 'indexed' keyword:
+		- used for event parameters
+		- increases the searchibility of parameters
+		- allows to filter the values of indexed args
+	- Usage:
+		1. provide smart contract return values for UI
+		2. Act as asynchronous triggers with data
+		3. Act as a cheaper form of storage
+	- Inheritable as part of the contract
+	- Same as 'Log' but the situation dictates which keyword is to be used
+	-  USEFUL WHEN INTERACTING WITH APPLICATION TO PROVIDE NOTIFICATIONS AND 
+	CONFIRMATIONS
+	- events are not emitted until the transaction is mined/processed
+
+** Factory Design Pattern
+in Token.sol:
+	contract Token { ... }
+
+in TokenFactory.sol:
+	import './Token.sol';
+	contract TokenFactory { ... } // TokenFactory will use the imported
+					 Token.sol to do more things, instead
+					of having everything in Token.sol
+
+- This helps keep contracts clean, basically a form of abstraction
