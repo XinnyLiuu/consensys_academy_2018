@@ -1,4 +1,5 @@
 pragma solidity ^0.4.13;
+
 contract SimpleBank {
 
 	/**
@@ -8,7 +9,7 @@ contract SimpleBank {
   mapping (address => bool) public enrolled; // We want a getter function
   address public owner; // make sure everyone knows who owns the bank
 
-  /**
+	/**
 		Events
 	**/
   event LogEnrolled(address accountAddress);
@@ -18,7 +19,7 @@ contract SimpleBank {
 	/**
 		Constructor
 	**/
-  constructor() {
+	constructor() {
 		owner = msg.sender;
   }
 
