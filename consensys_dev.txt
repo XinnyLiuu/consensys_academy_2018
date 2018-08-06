@@ -364,3 +364,33 @@ in TokenFactory.sol:
 					of having everything in Token.sol
 
 - This helps keep contracts clean, basically a form of abstraction
+
+
+
+
+** FINAL PROJECT REQs
+- User Interface
+	- Dev Server
+	- Metamask interaction
+	- Ui must be updated
+- Testing must be implemented
+	- 5 test for each contract (sol or js)
+	- Explain why you wrote those tests
+	- Tests run with truffle test
+- Design Pattern
+	- Implement emergency stop
+	- What other design patterns have you used/ not used?
+		- Why did you choose the patterns? 
+		- Why not others ?
+- Security Tools/ Common attacks
+	- Explain what measures you have taken to ensure that your contracts are 
+	protected
+- Use a library 
+	- Self written or ethPM
+- Deploy to Rinkeby 
+- Use IPFS, uPort, etc. 
+
+
+
+
+** NOTE: COMPILE, MIGRATE --reset ALWAYS

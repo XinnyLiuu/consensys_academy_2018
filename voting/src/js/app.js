@@ -88,6 +88,7 @@ const App = {
 
 			loader.hide();
 			content.show();
+
 		})
 		.catch(err => {
 			console.warn(err);
