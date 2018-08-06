@@ -22,6 +22,8 @@
 					<p class="text-center">Loading...</p>
 				</div>
 				<div id="content" style="display: none;">
+
+					<!-- Results of Election -->
 					<table class="table">
 						<thead>
 							<tr>
@@ -31,11 +33,24 @@
 							</tr>
 						</thead>
 						<tbody id="candidatesResults">
-							<!--
-							 	Results of Election 
-							-->
+							<!-- CANDIDATE DATA -->
 						</tbody>
 					</table>
+					<!-- /Results of Election -->
+
+					<!-- Voting Form -->
+					<form onSubmit="App.castVote(); return false;">
+						<div class="form-group">
+							<label for="candidatesSelect">Select Candidate</label>
+							<select class="form-control" id="candidatesSelect">
+								<!-- CANDIDATE DATA -->
+							</select>
+						</div>
+						<button type="submit" class="btn btn-primary">Vote</button>
+						<hr />
+					</form>
+					<!-- / Voting Form -->
+
 					<hr/>
 					<p id="accountAddress" class="text-center"></p>
 				</div>

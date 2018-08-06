@@ -36,4 +36,25 @@ contract("Election", function(accounts) {
 			assert.equal(candidate[2], 0, "contains the correct votes count");
 		});
 	});
+
+	// Checks if the vote function increments the voteCount, users are added to mapping when they vote
+	it("allows a voter to cast a vote", function() {
+		return Election.deployed()
+		.then(instance => {
+			electionInstance = instance;
+			candidateId = 1;
+			return electionInstance.vote(candidateId, { from: accounts[0] });
+		})
+		.then(receipt => {
+			return electionInstance.voters(accounts[0]);
+		})
+		.then(voted => {
+			assert(voted, 'the voter was marked as voted');
+			return electionInstance.candidates(candidateId);
+		})
+		.then(candidate => {
+			const voteCount = candidate[2];
+			assert.equal(voteCount, 1, "increments the candidate's vote count");
+		})
+	});
 });

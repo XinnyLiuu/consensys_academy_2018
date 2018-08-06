@@ -57,6 +57,9 @@ const App = {
 			const candidatesResults = $("#candidatesResults");
 			candidatesResults.empty();
 
+			const candidatesSelect = $('#candidatesSelect');
+			candidatesSelect.empty();
+
 			// Loop through each Candidate in candidates to properly render the front end
 			for(let i=1; i <= candidatesCount; i++) {
 				electionInstance.candidates(i)
@@ -68,14 +71,42 @@ const App = {
 					// Render the result
 					const candidateTemplate = "<tr><th>" + id + "</th><td>" + name + "</td><td>" + voteCount + "</td></tr>";
 					candidatesResults.append(candidateTemplate);
+
+					// Render ballot option
+					const candidateOption = "<option value ='" + id + "'>" + name + "</ option>";
+					candidatesSelect.append(candidateOption);
 				});
 			};
+
+			return electionInstance.voters(App.account);
+		})
+		.then(hasVoted => {
+
+			if(hasVoted) {
+				$('form').hide();
+			}
 
 			loader.hide();
 			content.show();
 		})
 		.catch(err => {
 			console.warn(err);
+		});
+	},
+
+	castVote: function() {
+		const candidateId = $('#candidatesSelect').val();
+		App.contracts.Election.deployed()
+		.then(instance => {
+			electionInstance = instance;
+			return electionInstance.vote(candidateId, { from: App.account });
+		})
+		.then(result => {
+			$('#content').hide();
+			$('#loader').show();
+		})
+		.catch(err => {
+			console.error(err);
 		});
 	}
 };
