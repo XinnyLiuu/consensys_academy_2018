@@ -1,4 +1,4 @@
-App = {
+const App = {
   web3Provider: null,
   contracts: {},
 
@@ -115,9 +115,7 @@ App = {
 				console.log(err);
 			})
 		})
-
   }
-
 };
 
 $(function() {
