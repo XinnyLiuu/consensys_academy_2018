@@ -22,23 +22,41 @@ contract Election {
 	}
 
 	/*
+		Events
+	*/
+	event votedEvent(uint indexed _candidateId);
+
+	/*
 		Functions
 	*/
 	function addCandidate(string _name) private {
+		// Tally candidatesCount
 		candidatesCount++;
+
+		// Set the value of the struct Candidate
 		candidates[candidatesCount] = Candidate({
 				id: candidatesCount,
 				name: _name,
 				voteCount: 0
 			});
 	}
-	
+
 	function vote(uint _candidateId) public {
-		require(!voters[msg.sender]); // check that address has not voted
-		require(_candidateId > 0 && _candidateId <= candidatesCount); // check that the id cannot be 0, and must be less than candidatesCount
+		// check that address has not voted
+		require(!voters[msg.sender]);
 
-		voters[msg.sender] = true; // Record voter has voted
+		// check that the id cannot be 0, and must be less than candidatesCount
+		require(_candidateId > 0 && _candidateId <= candidatesCount);
 
-		candidates[_candidateId].voteCount++; // Update candidates' vote count
+		// Record voter has voted
+		voters[msg.sender] = true;
+
+		// Update candidates' vote count
+		candidates[_candidateId].voteCount++;
+
+		// Trigger voted event
+		emit votedEvent(_candidateId);
 	}
+
+
 }
