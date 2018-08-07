@@ -20,6 +20,7 @@ const App = {
     return App.initContract();
   },
 
+	// Inititalizes the contract, and sets the web3Provider
 	initContract: function() {
 		$.getJSON("Election.json", function(election) {
 			// Instantiate a new truffle contract from the artifact
@@ -27,12 +28,13 @@ const App = {
 			// Connect the provider to interact with contract
 			App.contracts.Election.setProvider(App.web3Provider);
 
-			App.listenForEvents();
+			App.listenForEvents(); // Listens for events
 
 			return App.render();
 		});
 	},
 
+	// Rendering the front end for the dApp
 	render: function() {
 		let electionInstance;
 		const loader = $('#loader');
@@ -84,7 +86,7 @@ const App = {
 		})
 		.then(hasVoted => {
 
-			if(hasVoted) {
+			if(hasVoted) { // ensures that the users that have voted will not be able to vote again.
 				$('form').hide();
 			}
 
@@ -96,6 +98,7 @@ const App = {
 		});
 	},
 
+	// Allows for casting of votes, then hide the content and show the loader
 	castVote: function() {
 		const candidateId = $('#candidatesSelect').val();
 		App.contracts.Election.deployed()
@@ -112,6 +115,7 @@ const App = {
 		});
 	},
 
+	// Listens for Events, and reloads the App
 	listenForEvents: function() {
 		App.contracts.Election.deployed()
 		.then(instance => {
